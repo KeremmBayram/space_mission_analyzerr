@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Mission Analyzer</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <div class="eyebrow">MISSION CONTROL / ANALYTICS</div>
+    <h1>Space Mission Analyzer</h1>
+    <p>Analyze historical missions, compare agencies and targets, and estimate mission success.</p>
+  </div>
+  <button id="apodBtn" class="secondary">NASA Picture of the Day</button>
+</header>
+
+<main>
+  <section class="cards">
+    <div class="card"><span>Total Missions</span><strong id="total">-</strong></div>
+    <div class="card"><span>Successful</span><strong id="successful">-</strong></div>
+    <div class="card"><span>Success Rate</span><strong id="successRate">-</strong></div>
+    <div class="card"><span>Total Cost ($M)</span><strong id="totalCost">-</strong></div>
+  </section>
+
+  <section class="panel">
+    <div class="section-title">
+      <div><h2>Mission Explorer</h2><p>Filter and inspect the dataset.</p></div>
+      <button id="resetBtn" class="secondary">Reset</button>
+    </div>
+    <div class="filters">
+      <input id="search" placeholder="Search mission, agency, target...">
+      <select id="agency"><option value="">All agencies</option></select>
+      <select id="target"><option value="">All targets</option></select>
+      <select id="status">
+        <option value="">All statuses</option>
+        <option>Success</option><option>Partial</option><option>Failure</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Mission</th><th>Agency</th><th>Type</th><th>Target</th>
+          <th>Launch</th><th>Status</th><th>Cost ($M)</th>
+        </tr></thead>
+        <tbody id="missionTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="panel chart"><h2>Success Rate by Target</h2><div id="targetChart"></div></div>
+    <div class="panel chart"><h2>Agency Performance</h2><div id="agencyChart"></div></div>
+  </section>
+
+  <section class="panel">
+    <h2>AI Mission Risk Analyzer</h2>
+    <p>Enter proposed mission characteristics. The model is trained on the included historical dataset.</p>
+    <div class="predict-grid">
+      <select id="pAgency"><option>NASA</option><option>ESA</option><option>ISRO</option><option>JAXA</option><option>CNSA</option></select>
+      <select id="pCountry"><option>USA</option><option>Europe</option><option>India</option><option>Japan</option><option>China</option></select>
+      <select id="pType"><option>Rover</option><option>Orbiter</option><option>Lander</option><option>Probe</option><option>Crewed</option><option>Satellite</option></select>
+      <input id="pCost" type="number" placeholder="Cost ($M)" value="500">
+      <input id="pDuration" type="number" placeholder="Duration (days)" value="365">
+      <input id="pCrew" type="number" placeholder="Crew" value="0">
+      <select id="pTarget"><option>Mars</option><option>Moon</option><option>Earth Orbit</option><option>Comet</option><option>Asteroid</option><option>Deep Space</option></select>
+      <button id="predictBtn">Analyze Mission</button>
+    </div>
+    <div id="prediction" class="prediction hidden"></div>
+  </section>
+
+  <section id="apodPanel" class="panel hidden">
+    <h2 id="apodTitle"></h2>
+    <img id="apodImage" class="apod" alt="NASA Astronomy Picture of the Day">
+    <p id="apodText"></p>
+  </section>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
